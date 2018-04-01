@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace JiraClient
 {
-    public class Class1
+    public class JiraClient
     {
+        public static readonly string Localhost = "http://localhost:8080";
     }
 }
