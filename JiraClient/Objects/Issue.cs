@@ -10,7 +10,7 @@ namespace JiraClient.Objects
     {
         public int Id { get; set; }
         public string Key { get; set; }
-        public Dictionary<string, string> Fields { get; set; }
-        public Dictionary<string, string> Changelog { get; set; }
+        public DateTime Created { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -18,26 +18,29 @@ namespace JiraClient
 
         HttpClient _httpClient;
 
-        public Connection(string host, string apiName, string apiVersion)
+        public Connection(string host, string apiName, string apiVersion, Credentials credentials)
         {
             _apiName = apiName;
             _apiVersion = apiVersion;
 
             _address = $"{host}/{apiName}/api/{apiVersion}";
             _httpClient = new HttpClient();
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials.AuthString);
+
         }
 
-        public Connection(string host, string apiName) : this(host, apiName, "latest") { }
+        public Connection(string host, string apiName, Credentials credentials) : this(host, apiName, "latest", credentials) { }
 
-        public Connection(string host) : this(host, "rest") { }
+        public Connection(string host, Credentials credentials) : this(host, "rest", credentials) { }
 
-        public Connection() : this(_defaultServerUri) { }
+        public Connection(Credentials credentials) : this(_defaultServerUri, credentials) { }
 
-        public HttpResponseMessage Get(string apiCall, string auth)
+        public HttpResponseMessage Get(string apiCall)
         {
             string call = _address + apiCall;
 
-            _httpClient.GetAsync(call, )
+            var response = _httpClient.GetAsync(call).Result;
+            return response;
         }
     }
 }
